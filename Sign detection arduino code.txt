@@ -1,0 +1,108 @@
+//variable initializtion
+int xpin = A4;
+int xadc = 0;
+int xmax = 0;
+int xmin = 1023;
+
+int ypin = A5;
+int yadc = 0;
+int ymax = 0;
+int ymin = 1023;
+
+int FLEX_PIN1 = A0; 
+int flexADC1 = 0; 
+int sensorMin1 = 1023; 
+int sensorMax1 = 0;
+
+int FLEX_PIN2 = A1; 
+int flexADC2 = 0; 
+int sensorMin2 = 1023; 
+int sensorMax2 = 0;
+
+int FLEX_PIN3 = A2; 
+int flexADC3 = 0; 
+int sensorMin3 = 1023; 
+int sensorMax3 = 0;
+
+int FLEX_PIN4 = A3; 
+int flexADC4 = 0; 
+int sensorMin4 = 1023; 
+int sensorMax4 = 0;
+
+int FLEX_PIN5 = A6; 
+int flexADC5 = 0; 
+int sensorMin5 = 1023; 
+int sensorMax5 = 0;
+
+int button=12;
+void setup() 
+{
+Serial.begin(9600);
+pinMode(button,INPUT);
+
+}
+
+
+
+
+
+void loop() 
+{
+// reading sensor value
+  int flexValue1,flexValue2,flexValue3,flexValue4,flexValue5;
+  
+  flexValue1 = analogRead(FLEX_PIN1);
+  flexValue2 = analogRead(FLEX_PIN2);
+  flexValue3 = analogRead(FLEX_PIN3);
+  flexValue4 = analogRead(FLEX_PIN4);
+  flexValue5 = analogRead(FLEX_PIN5);
+  
+  float angle1= map(flexValue1, sensorMin1, sensorMax1, 0, 90);
+  float angle2= map(flexValue2, sensorMin1, sensorMax1, 0, 90);
+  float angle3= map(flexValue3, sensorMin1, sensorMax1, 0, 90);
+  float angle4= map(flexValue4, sensorMin1, sensorMax1, 0, 90);
+  float angle5= map(flexValue5, sensorMin1, sensorMax1, 0, 90);
+
+  xadc = analogRead(xpin);
+  yadc = analogRead(ypin);
+  
+  if(digitalRead(button)==0)
+  {
+    Serial.print("$");
+    Serial.print(angle1);
+    Serial.print(",");
+    Serial.print(angle2);
+    Serial.print(",");
+    Serial.print(angle3);
+    Serial.print(",");
+    Serial.print(angle4);
+    Serial.print(",");
+    Serial.print(angle5);
+    Serial.print(",");
+    Serial.print(xadc);
+    Serial.print(",");
+    Serial.print(yadc);
+    Serial.println("%");
+    //delay(1000);
+  }
+  else
+  {
+     Serial.print("$");
+    Serial.print("0");
+    Serial.print(",");
+    Serial.print("0");
+    Serial.print(",");
+    Serial.print("0");
+    Serial.print(",");
+    Serial.print("0");
+    Serial.print(",");
+    Serial.print("0");
+    Serial.print(",");
+    Serial.print("0");
+    Serial.print(",");
+    Serial.print("0");
+    Serial.println("%");
+    //delay(1000);
+  }
+ //delay(500);
+}
